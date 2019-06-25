@@ -1,5 +1,7 @@
 name: baryonic_effects
 channels:
+  - conda-forge
+  - http://ssb.stsci.edu/astroconda
   - defaults
 dependencies:
   - appnope=0.1.0=py37_0
@@ -112,5 +114,8 @@ dependencies:
   - zeromq=4.3.1=h0a44026_3
   - zipp=0.5.1=py_0
   - zlib=1.2.11=h1de35cc_3
-prefix: /Users/fardila/anaconda2/envs/baryonic_effects
+  - pip:
+    - baryonification==0.1
+    - schwimmbad==0.3.0
+prefix: /Users/fardila/anaconda/envs/baryonic_effects
 
