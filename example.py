@@ -15,6 +15,11 @@ par.files.partfile_in       = "/Users/fardila/Documents/Data/baryonic_effects/in
 par.files.partfile_format = "huang_npy"
 par.files.partfile_out      = "/Users/fardila/Documents/Data/baryonic_effects/output/particles.out"
 
+#on laptop
+# par.files.halofile_in       = "sample_data/um_smdpl_insitu_exsitu_0.7124_basic_logmp_11.5.npy"
+# par.files.partfile_in       = "sample_data/um_smdpl_particles_0.7124_50m.npy"
+# par.files.partfile_out      = "outfiles/particles.out"
+
 #simulation parameters
 par.sim.Lbox = 400
 
