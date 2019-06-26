@@ -43,3 +43,7 @@ bfc.cosmo(par)
 bfc.displace(par)
 
 print("Running time: {0} seconds".format(time.time() - time1))
+
+##############################################################################
+# timing
+# 6500 s on single core on Chia (~2hrs) 
