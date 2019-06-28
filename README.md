@@ -9,5 +9,7 @@ demonstrating constraints on baryonic effects
 ## Papers
 [Schneider & Teyssier 2015: A new method to quantify the effects of baryons on the matter power spectrum](https://ui.adsabs.harvard.edu/abs/2015JCAP...12..049S/abstract)
 
+[Schneider et al. 2019: Quantifying baryon effects on the matter power spectrum and the weak lensing shear correlation](https://ui.adsabs.harvard.edu/abs/2019JCAP...03..020S/abstract)
+
 ## baryonification code
 [bitbucket repository](https://bitbucket.org/aurelschneider/baryonification)
