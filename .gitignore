@@ -1,2 +1,5 @@
 .DS_Store
 .ipynb_checkpoints
+sample_data/
+ASAP/asap_baryonification_B_sample.npz
+baryonification/cosmofct.dat
