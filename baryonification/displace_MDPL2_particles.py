@@ -6,7 +6,7 @@ time1 = time.time()
 
 Mcs = [2.3e13,6.6e13,1.9e14]
 mus = [0.31, 0.21, 0.17]
-hydrostatic_mass_biases = [1, 0.833, 0.714]
+hydrostatic_mass_biases = [1, 0.833, 0.714] #not sure how to vary hydrostatic mass bias in code
 models = ['A', 'B', 'C']
 
 for i in [0,1,2]:
@@ -20,7 +20,7 @@ for i in [0,1,2]:
     par.files.transfct          = "/Users/fardila/Documents/GitHub/baryonification/baryonification/files/CDM_PLANCK_tk.dat"
 
     par.files.halofile_in       = data_dir+"halo_catalogs/mdpl2_hlist_0.65650_Mvir11.2.csv"
-    par.files.halofile_in       = data_dir+"halo_catalogs/mdpl2_0.65650_Mvir14.csv"
+    # par.files.halofile_in       = data_dir+"halo_catalogs/mdpl2_0.65650_Mvir14.csv"
     # par.files.halofile_in       = data_dir+"halo_catalogs/test.csv"
     par.files.halofile_format = "ROCKSTAR-CSV"
 
