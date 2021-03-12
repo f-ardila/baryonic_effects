@@ -16,7 +16,10 @@ from scipy.interpolate import splrep, splev
 from scipy.integrate import quad
 
 import baryonification as bfc
-from baryonification.useful_functions import  *
+from baryonification.useful_functions import  DeltaSigmas_from_density_profile
+
+from colossus.cosmology import cosmology
+from colossus.halo import concentration
 
 
 def print_progress(progress):
@@ -544,7 +547,7 @@ class TabCorr:
             Array or dictionary of arrays storing the prediction for the
             correlation function.
         """
-
+        
         try:
             assert (sorted(hod_model.gal_types) == sorted(
                     ['centrals', 'satellites']))
@@ -602,8 +605,11 @@ class TabCorr:
 
         #################
         #baryonification
-        halo_mass = np.array(self.gal_type['prim_haloprop'])
-        halo_conc = cvir_fct(halo_mass)
+        cosmology.setCosmology('planck15')
+        halo_mass = np.array(halotab.gal_type['prim_haloprop'])
+#         halo_conc = cvir_fct(halo_mass)
+        halo_conc = concentration.concentration(halo_mass, 'vir', redshift, model = 'diemer19')
+        halo_conc = halo_conc*0.93
 
         par = bfc.par()
         par.baryon.eta_tot = 0.32
@@ -611,23 +617,24 @@ class TabCorr:
         par.files.transfct = '/Users/fardila/Documents/GitHub/baryonification/baryonification/files/CDM_PLANCK_tk.dat'
 
         rbin = annular_area_weighted_midpoints(np.logspace(-1, 1, 20))
+        rho_r = annular_area_weighted_midpoints(np.logspace(-2,2,100))
 
         #baryon params
-        Mc   = baryon_model_params[0]
-        mu   = baryon_model_params[1]
-        thej = baryon_model_params[2]
+        par.baryon.Mc   = baryon_model_params[0]
+        par.baryon.mu   = baryon_model_params[1]
+        par.baryon.thej = baryon_model_params[2]
         #2h term
         vc_r, vc_m, vc_bias, vc_corr = bfc.cosmo(par)
         bias_tck = splrep(vc_m, vc_bias, s=0)
         corr_tck = splrep(vc_r, vc_corr, s=0)
 
         cosmo_bias = splev(halo_mass,bias_tck)
-        cosmo_corr = splev(rbin,corr_tck)
+        cosmo_corr = splev(rho_r,corr_tck)
 
-        correction_factors = np.array([DeltaSigmas_from_density_profile(rbin,bfc.profiles(rbin,halo_mass[i], halo_conc[i], Mc,mu,thej,cosmo_corr,cosmo_bias[i],par)[1])[2] for i in range(len(halo_mass))])
+        correction_factors = np.array([DeltaSigmas_from_density_profile(rbin, rho_r, bfc.profiles(rho_r,halo_mass[i], halo_conc[i], cosmo_corr,cosmo_bias[i],par)[1])[2] for i in range(len(halo_mass))])
 
         #[1] gets density profiles only
-        #[2] gets ratios only
+        #[2] gets DS ratios only
 
         xi = correction_factors.T * xi
         #####################
